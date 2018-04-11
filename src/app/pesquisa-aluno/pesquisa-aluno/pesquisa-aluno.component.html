@@ -1,6 +1,6 @@
 <h1 class="page-title">
-    <i class="icon-user"></i>
- <span style="margin-left:5px"> Controle de Alunos </span>
+  <i class="icon-user"></i>
+  <span style="margin-left:5px"> Controle de Alunos </span>
   <small></small>
 </h1>
 
@@ -29,7 +29,12 @@
       <div class="portlet-body">
         <div class="row">
 
-          <p-dataTable [value]="alunos" [paginator]="true" [rows]="8" [responsive]="true" #tabela>
+          <p-dataTable [value]="alunos" [paginator]="true"
+                       [rows]="filtro.itensPorPagina"
+                       [lazy]="true" [totalRecords]="totalRegistros"
+                            (onLazyLoad)="aoMudarPagina($event)"
+                            [responsive]="true"
+                            emptyMessage="Nenhuma Aluno encontrado...." #tabela>
 
             <p-column field="id" header="Código" styleClass="col-id"></p-column>
             <p-column field="nome" header="Nome"></p-column>

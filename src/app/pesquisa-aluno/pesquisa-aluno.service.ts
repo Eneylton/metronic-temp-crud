@@ -1,23 +1,49 @@
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+
+
+export class AlunoFiltro {
+
+  pagina = 0;
+  itensPorPagina = 7;
+}
+
 
 @Injectable()
 export class PesquisaAlunoService {
 
-  alunosUrl = 'http://localhost:8080/alunos';
+  alunosDeleteURL = 'http://localhost:8080/alunos'
+
+  alunosUrl = 'http://localhost:8080/alunos/alunoPaginacao';
 
   constructor(private http: Http) { }
 
-  pesquisar(): Promise<any> {
+  pesquisar(filtro: AlunoFiltro): Promise<any> {
 
-    return this.http.get(`${this.alunosUrl}`)
+    const params = new URLSearchParams();
+    const headers = new Headers();
+
+    params.set('page', filtro.pagina.toString());
+    params.set('size', filtro.itensPorPagina.toString());
+
+    return this.http.get(`${this.alunosUrl}`, { headers, search: params })
       .toPromise()
-      .then(response => response.json())
+      .then(response => {
+        const responseJson = response.json();
+        const alunos = responseJson.content;
+
+        const resultado = {
+          alunos,
+          total: responseJson.totalElements
+        };
+
+        return resultado;
+      })
   }
 
   remover(codigo:number): Promise<void> {
-
-    return this.http.delete(`${this.alunosUrl}/${codigo}`)
+    const headers = new Headers();
+    return this.http.delete(`${this.alunosDeleteURL}/${codigo}`, { headers })
       .toPromise()
       .then(() => null);
   }
