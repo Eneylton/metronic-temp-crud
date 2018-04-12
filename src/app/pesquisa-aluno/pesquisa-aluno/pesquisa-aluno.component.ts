@@ -17,6 +17,8 @@ export class PesquisaAlunoComponent {
   totalRegistros = 0;
   filtro = new AlunoFiltro();
 
+
+
   alunos = [];
   @ViewChild('tabela') grid;
 
@@ -27,6 +29,7 @@ export class PesquisaAlunoComponent {
     private confirmation: ConfirmationService
 
   ) { }
+
 
 
   pesquisar(pagina = 0) {
