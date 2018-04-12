@@ -16,9 +16,6 @@ export class PesquisaAlunoComponent {
 
   totalRegistros = 0;
   filtro = new AlunoFiltro();
-
-
-
   alunos = [];
   @ViewChild('tabela') grid;
 

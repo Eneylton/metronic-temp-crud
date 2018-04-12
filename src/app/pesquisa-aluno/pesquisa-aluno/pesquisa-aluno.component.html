@@ -27,12 +27,17 @@
         </div>
       </div>
       <div class="portlet-body">
-        <div class="row">
 
+
+
+        <div class="row">
+            <form autocomplete="off" (ngSubmit)="pesquisar()">
             <div class="ui-widget-header" style="color:#666; padding:4px 10px;border-bottom: 0 none">
-                <i class="fa fa-search" style="color:#dddddd; margin:4px 4px 0 0"></i>
-                <input #gb type="text" pInputText size="50" >
+                <i class="fa fa-search" style="color:#ddd;;margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="35" [(ngModel)]="filtro.nome"
+                name="nome" ngModel >
             </div>
+            </form>
 
           <p-dataTable [value]="alunos" [paginator]="true"
                        [rows]="filtro.itensPorPagina"

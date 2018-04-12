@@ -4,7 +4,10 @@ import { Injectable } from '@angular/core';
 
 export class AlunoFiltro {
 
+  nome: string;
+
   pagina = 0;
+
   itensPorPagina = 7;
 }
 
@@ -25,6 +28,11 @@ export class PesquisaAlunoService {
 
     params.set('page', filtro.pagina.toString());
     params.set('size', filtro.itensPorPagina.toString());
+
+    if (filtro.nome) {
+      params.set('nome', filtro.nome);
+    }
+
 
     return this.http.get(`${this.alunosUrl}`, { headers, search: params })
       .toPromise()
